@@ -6,10 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
@@ -19,8 +24,10 @@ import android.widget.TextView;
 import com.novoda.materialpainter.view.PaletteView;
 import com.novoda.notils.caster.Views;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class PainterActivity extends ActionBarActivity {
@@ -30,11 +37,13 @@ public class PainterActivity extends ActionBarActivity {
     private static final int ANIMATION_DURATION = 400;
     private static final float TENSION = 1.f;
 
+    private View root;
     private TextView startingText;
     private PaletteView paletteView;
     private ImageButton selectImage;
     private ImageView imageView;
     private Toolbar toolbar;
+    private ShareActionProvider shareActionProvider;
 
     private int fabHideTranslationY;
     private int toolbarHideTranslationY;
@@ -46,7 +55,7 @@ public class PainterActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_painter);
 
-        toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fabHideTranslationY = 2 * getResources().getDimensionPixelOffset(R.dimen.fab_min_size);
@@ -67,7 +76,29 @@ public class PainterActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_share, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_share) {
+            shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+            if (shareActionProvider != null){
+                shareActionProvider.setShareIntent(loadBitmapFromView(root));
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initViews() {
+        root = Views.findById(this, R.id.root_view);
         startingText = Views.findById(this, R.id.starting_text);
         paletteView = Views.findById(this, R.id.palette);
         imageView = Views.findById(this, R.id.show_image);
@@ -176,4 +207,33 @@ public class PainterActivity extends ActionBarActivity {
                 .start();
 
     }
+
+    public Intent loadBitmapFromView(View v) {
+        Bitmap viewBitmap = Bitmap.createBitmap(v.getLayoutParams().width, v.getLayoutParams().height, Bitmap.Config.ARGB_8888);
+
+        // Store image to default external storage directory
+        Uri bmpUri = null;
+        try {
+            File file = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOWNLOADS), "share_image_" + System.currentTimeMillis() + ".png");
+            file.getParentFile().mkdirs();
+            FileOutputStream out = new FileOutputStream(file);
+            viewBitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.close();
+            bmpUri = Uri.fromFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_STREAM, bmpUri);
+
+        return Intent.createChooser(intent, "Share Cover Image");
+    }
+
 }
