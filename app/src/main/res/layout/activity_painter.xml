@@ -5,37 +5,34 @@
   android:layout_height="match_parent"
   tools:context=".PainterActivity">
 
-  <ViewFlipper
-    android:id="@+id/flipper"
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <FrameLayout
+    <ImageView
+      style="@style/PaletteImage"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:id="@+id/show_image" />
 
-    <LinearLayout
+    <com.novoda.materialpainter.view.PaletteView
+      android:id="@+id/palette"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical">
+      android:layout_height="0dp"
+      android:layout_weight="1" />
 
-      <ImageView
-        style="@style/PaletteImage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/show_image" />
+  </LinearLayout>
 
-      <com.novoda.materialpainter.view.PaletteView
-        android:id="@+id/palette"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    </LinearLayout>
-
-  </ViewFlipper>
-
+  <TextView
+    android:id="@+id/starting_text"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:text="@string/start_painting_text" />
 
   <ImageButton
     android:id="@+id/fab_select_image"

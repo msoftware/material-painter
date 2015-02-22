@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ViewFlipper;
+import android.widget.TextView;
 
 import com.novoda.materialpainter.view.PaletteView;
 import com.novoda.notils.caster.Views;
@@ -27,7 +27,7 @@ public class PainterActivity extends ActionBarActivity {
 
     private static final int READ_REQUEST_CODE = 42;
 
-    private ViewFlipper flipper;
+    private TextView startingText;
     private PaletteView paletteView;
     private ImageButton selectImage;
     private ImageView imageView;
@@ -47,8 +47,19 @@ public class PainterActivity extends ActionBarActivity {
         setListeners();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri uri;
+            if (resultData != null) {
+                uri = resultData.getData();
+                showImage(uri);
+            }
+        }
+    }
+
     private void initViews() {
-        flipper = Views.findById(this, R.id.flipper);
+        startingText = Views.findById(this, R.id.starting_text);
         paletteView = Views.findById(this, R.id.palette);
         imageView = Views.findById(this, R.id.show_image);
         selectImage = Views.findById(this, R.id.fab_select_image);
@@ -74,17 +85,6 @@ public class PainterActivity extends ActionBarActivity {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uri;
-            if (resultData != null) {
-                uri = resultData.getData();
-                showImage(uri);
-            }
-        }
-    }
-
     public void performFileSearch() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -98,7 +98,6 @@ public class PainterActivity extends ActionBarActivity {
             Bitmap image = parcelImage(uri);
             generatePalette(image);
             hideViews();
-            flipper.showNext();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -136,6 +135,7 @@ public class PainterActivity extends ActionBarActivity {
     private void hideViews() {
         runTranslateAnimation(selectImage, 2 * getResources().getDimensionPixelOffset(R.dimen.fab_min_size));
         runTranslateAnimation(toolbar, -2 * getResources().getDimensionPixelOffset(R.dimen.toolbar_min_size));
+        startingText.setVisibility(View.GONE);
         viewsVisible = false;
     }
 

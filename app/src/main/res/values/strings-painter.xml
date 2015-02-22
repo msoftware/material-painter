@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <string name="start_painting_text">You haven\'t selected any image yet, how about using that pretty little FAB?</string>
+
   <string name="fab_content_description">Select image</string>
   <string name="palette_image_content_description">Palette Image</string>
 
