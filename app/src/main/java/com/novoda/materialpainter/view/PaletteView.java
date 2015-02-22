@@ -50,27 +50,27 @@ public class PaletteView extends LinearLayout {
 
     public void updateWith(Palette palette){
         if (palette.getMutedSwatch() != null){
-            mutedSwatchView.updateWith(palette.getMutedSwatch());
+            mutedSwatchView.updateWith(palette.getMutedSwatch(), getResources().getString(R.string.swatch_muted));
         }
 
         if (palette.getDarkMutedSwatch() != null) {
-            mutedDarkSwatchView.updateWith(palette.getDarkMutedSwatch());
+            mutedDarkSwatchView.updateWith(palette.getDarkMutedSwatch(), getResources().getString(R.string.swatch_muted_dark));
         }
 
         if (palette.getLightMutedSwatch() != null) {
-            mutedLightSwatchView.updateWith(palette.getLightMutedSwatch());
+            mutedLightSwatchView.updateWith(palette.getLightMutedSwatch(), getResources().getString(R.string.swatch_muted_light));
         }
 
         if (palette.getVibrantSwatch() != null) {
-            vibrantSwatchView.updateWith(palette.getVibrantSwatch());
+            vibrantSwatchView.updateWith(palette.getVibrantSwatch(), getResources().getString(R.string.swatch_vibrant));
         }
 
-        if (palette.getMutedSwatch() != null) {
-            vibrantDarkSwatchView.updateWith(palette.getDarkVibrantSwatch());
+        if (palette.getDarkVibrantSwatch() != null) {
+            vibrantDarkSwatchView.updateWith(palette.getDarkVibrantSwatch(), getResources().getString(R.string.swatch_vibrant_dark));
         }
 
         if (palette.getLightVibrantSwatch() != null) {
-            vibrantLightSwatchView.updateWith(palette.getLightVibrantSwatch());
+            vibrantLightSwatchView.updateWith(palette.getLightVibrantSwatch(), getResources().getString(R.string.swatch_vibrant_light));
         }
 
     }

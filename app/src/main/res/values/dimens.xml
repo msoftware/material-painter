@@ -10,5 +10,6 @@
   <dimen name="fab_text_size">16sp</dimen>
 
   <dimen name="palette_image_size">300dp</dimen>
+  <dimen name="swatch_text_size">12sp</dimen>
 
 </resources>

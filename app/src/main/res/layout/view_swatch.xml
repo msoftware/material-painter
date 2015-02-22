@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/swatch_layout"
+
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/swatch_flipper"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:gravity="center"
-  android:orientation="vertical"
-  tools:showIn="@layout/view_palette">
+  android:layout_height="match_parent">
+
+  <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swatch_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:showIn="@layout/view_palette">
+
+    <TextView
+      android:id="@+id/swatch_title_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+
+    <TextView
+      android:id="@+id/swatch_body_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Swatch" />
+
+  </LinearLayout>
 
   <TextView
-    android:id="@+id/swatch_title_text"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Title" />
+    android:id="@+id/swatch_blurb"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textSize="@dimen/swatch_text_size"
+    android:gravity="center"/>
 
-  <TextView
-    android:id="@+id/swatch_body_text"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Body" />
-
-</LinearLayout>
+</ViewFlipper>

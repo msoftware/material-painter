@@ -6,4 +6,11 @@
   <string name="fab_content_description">Select image</string>
   <string name="palette_image_content_description">Palette Image</string>
 
+  <string name="swatch_muted">Muted</string>
+  <string name="swatch_muted_dark">Dark Muted</string>
+  <string name="swatch_muted_light">Light Muted</string>
+  <string name="swatch_vibrant">Vibrant</string>
+  <string name="swatch_vibrant_dark">Vibrant Dark</string>
+  <string name="swatch_vibrant_light">Vibrant Light</string>
+
 </resources>
