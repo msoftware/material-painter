@@ -26,12 +26,18 @@ import java.io.IOException;
 public class PainterActivity extends ActionBarActivity {
 
     private static final int READ_REQUEST_CODE = 42;
+    private static final int ANIMATION_START_DELAY = 300;
+    private static final int ANIMATION_DURATION = 400;
+    private static final float TENSION = 1.f;
 
     private TextView startingText;
     private PaletteView paletteView;
     private ImageButton selectImage;
     private ImageView imageView;
     private Toolbar toolbar;
+
+    private int fabHideTranslationY;
+    private int toolbarHideTranslationY;
 
     private boolean viewsVisible = false;
 
@@ -42,6 +48,9 @@ public class PainterActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
+
+        fabHideTranslationY = 2 * getResources().getDimensionPixelOffset(R.dimen.fab_min_size);
+        toolbarHideTranslationY = -2 * getResources().getDimensionPixelOffset(R.dimen.toolbar_min_size);
 
         initViews();
         setListeners();
@@ -80,10 +89,18 @@ public class PainterActivity extends ActionBarActivity {
         selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performFileSearch();
+                runTranslateAnimationWithEndAction(selectImage, fabHideTranslationY, performImageSearchRunnable);
             }
         });
     }
+
+    private Runnable performImageSearchRunnable =
+            new Runnable() {
+                @Override
+                public void run() {
+                    performFileSearch();
+                }
+            };
 
     public void performFileSearch() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -133,8 +150,8 @@ public class PainterActivity extends ActionBarActivity {
     }
 
     private void hideViews() {
-        runTranslateAnimation(selectImage, 2 * getResources().getDimensionPixelOffset(R.dimen.fab_min_size));
-        runTranslateAnimation(toolbar, -2 * getResources().getDimensionPixelOffset(R.dimen.toolbar_min_size));
+        runTranslateAnimation(selectImage, fabHideTranslationY);
+        runTranslateAnimation(toolbar, toolbarHideTranslationY);
         startingText.setVisibility(View.GONE);
         viewsVisible = false;
     }
@@ -142,9 +159,20 @@ public class PainterActivity extends ActionBarActivity {
     private void runTranslateAnimation(View view, int translateY) {
         view.animate()
                 .translationY(translateY)
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
-                .setDuration(400)
+                .setInterpolator(new OvershootInterpolator(TENSION))
+                .setStartDelay(ANIMATION_START_DELAY)
+                .setDuration(ANIMATION_DURATION)
+                .start();
+
+    }
+
+    private void runTranslateAnimationWithEndAction(View view, int translateY, Runnable runnable) {
+        view.animate()
+                .translationY(translateY)
+                .setInterpolator(new OvershootInterpolator(TENSION))
+                .setStartDelay(ANIMATION_START_DELAY)
+                .setDuration(ANIMATION_DURATION)
+                .withEndAction(runnable)
                 .start();
 
     }
