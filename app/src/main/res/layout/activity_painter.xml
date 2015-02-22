@@ -1,35 +1,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".PainterActivity">
 
-  <LinearLayout
-    android:id="@+id/muted_layout"
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/my_awesome_toolbar"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_marginTop="10dp"
-    android:gravity="center"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/color_primary"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/muted_layout_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Title" />
+    <ImageView
+      style="@style/PaletteImage"
+      android:layout_width="match_parent"
+      android:layout_height="0.0dp"
+      android:layout_weight="1"
+      android:id="@+id/show_image" />
 
-    <TextView
-      android:id="@+id/muted_layout_body_text"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Body" />
+    <LinearLayout
+      android:id="@+id/muted_layout"
+      android:layout_width="match_parent"
+      android:layout_height="0.0dp"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/muted_layout_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title" />
+
+      <TextView
+        android:id="@+id/muted_layout_body_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Body" />
+
+    </LinearLayout>
 
   </LinearLayout>
-
-  <ImageView
-    style="@style/PaletteImage"
-    android:id="@+id/show_image"
-    android:layout_centerInParent="true" />
 
   <ImageButton
     android:id="@+id/fab_select_image"
@@ -37,6 +56,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"/>
+    android:layout_alignParentRight="true" />
 
 </RelativeLayout>

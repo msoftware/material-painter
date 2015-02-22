@@ -1,0 +1,14 @@
+<resources>
+
+  <style name="Theme.MaterialPainter" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorAccent">@color/color_accent</item>
+    <item name="colorPrimaryDark">@color/color_primary_dark</item>
+
+    <item name="android:textColorPrimary">@color/color_primary_text</item>
+    <item name="android:textColorSecondary">@color/color_secondary_text</item>
+
+  </style>
+
+
+</resources>
