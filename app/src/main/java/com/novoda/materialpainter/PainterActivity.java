@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import com.novoda.materialpainter.view.PaletteView;
 import com.novoda.notils.caster.Views;
@@ -26,6 +27,7 @@ public class PainterActivity extends ActionBarActivity {
 
     private static final int READ_REQUEST_CODE = 42;
 
+    private ViewFlipper flipper;
     private PaletteView paletteView;
     private ImageButton selectImage;
     private ImageView imageView;
@@ -41,9 +43,18 @@ public class PainterActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
-        paletteView = Views.findById(this, R.id.palette);
+        initViews();
+        setListeners();
+    }
 
+    private void initViews() {
+        flipper = Views.findById(this, R.id.flipper);
+        paletteView = Views.findById(this, R.id.palette);
         imageView = Views.findById(this, R.id.show_image);
+        selectImage = Views.findById(this, R.id.fab_select_image);
+    }
+
+    private void setListeners() {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,14 +66,12 @@ public class PainterActivity extends ActionBarActivity {
             }
         });
 
-        selectImage = Views.findById(this, R.id.fab_select_image);
         selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performFileSearch();
             }
         });
-
     }
 
     @Override
@@ -85,22 +94,27 @@ public class PainterActivity extends ActionBarActivity {
     }
 
     private void showImage(Uri uri) {
-        ParcelFileDescriptor parcelFileDescriptor;
         try {
-            parcelFileDescriptor = getContentResolver().openFileDescriptor(uri, "r");
-            FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-            Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-            imageView.setImageBitmap(image);
-
+            Bitmap image = parcelImage(uri);
             generatePalette(image);
-
-            parcelFileDescriptor.close();
+            hideViews();
+            flipper.showNext();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private Bitmap parcelImage(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor;
+        parcelFileDescriptor = getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        imageView.setImageBitmap(image);
+        parcelFileDescriptor.close();
+        return image;
     }
 
     private void generatePalette(Bitmap image) {
@@ -111,7 +125,6 @@ public class PainterActivity extends ActionBarActivity {
                 }
             }
         });
-        hideViews();
     }
 
     private void showViews() {
