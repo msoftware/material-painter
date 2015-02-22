@@ -1,10 +1,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-  android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-  android:paddingRight="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin"
-  android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".PainterActivity">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".PainterActivity">
 
-  <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+  <LinearLayout
+    android:id="@+id/muted_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/muted_layout_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Title" />
+
+    <TextView
+      android:id="@+id/muted_layout_body_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Body" />
+
+  </LinearLayout>
+
+  <ImageView
+    style="@style/PaletteImage"
+    android:id="@+id/show_image"
+    android:layout_centerInParent="true" />
+
+  <ImageButton
+    android:id="@+id/fab_select_image"
+    style="@style/Painter.FloatingActionButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
