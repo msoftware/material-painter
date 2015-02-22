@@ -3,6 +3,8 @@
   <dimen name="activity_horizontal_margin">16dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
 
+  <dimen name="toolbar_min_size">56dp</dimen>
+
   <dimen name="fab_margin">16dp</dimen>
   <dimen name="fab_min_size">56dp</dimen>
   <dimen name="fab_text_size">16sp</dimen>
