@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+  android:color="@color/fab_ripple_color">
+
+  <item>
+    <shape android:shape="oval">
+      <solid android:color="@color/color_primary" />
+    </shape>
+  </item>
+
+</ripple>
+<!-- From: file:/Users/malmstein/_dev/android/novoda/MaterialPainter/app/src/main/res/drawable-v21/shape_fab_background.xml -->
