@@ -12,7 +12,7 @@
     android:theme="@style/Theme.MaterialPainter">
     <activity
       android:name=".PainterActivity"
-      android:label="@string/app_name">
+      android:label="@string/painter_prompt">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
