@@ -47,7 +47,7 @@ public class PainterActivity extends ActionBarActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (viewsVisible){
+                if (viewsVisible) {
                     hideViews();
                 } else {
                     showViews();
@@ -74,42 +74,6 @@ public class PainterActivity extends ActionBarActivity {
                 showImage(uri);
             }
         }
-    }
-
-    private void showViews(){
-        selectImage.animate()
-                .translationY(0)
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
-                .setDuration(400)
-                .start();
-
-        toolbar.animate()
-                .translationY(0)
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
-                .setDuration(400)
-                .start();
-
-        viewsVisible = true;
-    }
-
-    private void hideViews() {
-        selectImage.animate()
-                .translationY(2 * getResources().getDimensionPixelOffset(R.dimen.fab_min_size))
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
-                .setDuration(400)
-                .start();
-
-        toolbar.animate()
-                .translationY(-2 * getResources().getDimensionPixelOffset(R.dimen.toolbar_min_size))
-                .setInterpolator(new OvershootInterpolator(1.f))
-                .setStartDelay(300)
-                .setDuration(400)
-                .start();
-
-        viewsVisible = false;
     }
 
     public void performFileSearch() {
@@ -148,5 +112,27 @@ public class PainterActivity extends ActionBarActivity {
             }
         });
         hideViews();
+    }
+
+    private void showViews() {
+        runTranslateAnimation(selectImage, 0);
+        runTranslateAnimation(toolbar, 0);
+        viewsVisible = true;
+    }
+
+    private void hideViews() {
+        runTranslateAnimation(selectImage, 2 * getResources().getDimensionPixelOffset(R.dimen.fab_min_size));
+        runTranslateAnimation(toolbar, -2 * getResources().getDimensionPixelOffset(R.dimen.toolbar_min_size));
+        viewsVisible = false;
+    }
+
+    private void runTranslateAnimation(View view, int translateY) {
+        view.animate()
+                .translationY(translateY)
+                .setInterpolator(new OvershootInterpolator(1.f))
+                .setStartDelay(300)
+                .setDuration(400)
+                .start();
+
     }
 }
