@@ -13,8 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.novoda.materialpainter.view.PaletteView;
 import com.novoda.notils.caster.Views;
 
 import java.io.FileDescriptor;
@@ -25,12 +25,9 @@ public class PainterActivity extends ActionBarActivity {
 
     private static final int READ_REQUEST_CODE = 42;
 
+    private PaletteView paletteView;
     private ImageButton selectImage;
     private ImageView imageView;
-
-    private View mutedLayout;
-    private TextView mutedTitle;
-    private TextView mutedBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +37,7 @@ public class PainterActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
-        mutedLayout = findViewById(R.id.muted_layout);
-        mutedTitle = Views.findById(this, R.id.muted_layout_text);
-        mutedBody = Views.findById(this, R.id.muted_layout_body_text);
+        paletteView = Views.findById(this, R.id.palette);
 
         imageView = Views.findById(this, R.id.show_image);
         selectImage = Views.findById(this, R.id.fab_select_image);
@@ -82,14 +77,7 @@ public class PainterActivity extends ActionBarActivity {
             Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
             imageView.setImageBitmap(image);
 
-            Palette.generateAsync(image, new Palette.PaletteAsyncListener() {
-                public void onGenerated(Palette palette) {
-                    Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                    mutedLayout.setBackgroundColor(mutedSwatch.getRgb());
-                    mutedTitle.setTextColor(mutedSwatch.getTitleTextColor());
-                    mutedBody.setTextColor(mutedSwatch.getBodyTextColor());
-                }
-            });
+            generatePalette(image);
 
             parcelFileDescriptor.close();
         } catch (FileNotFoundException e) {
@@ -98,5 +86,15 @@ public class PainterActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
+    }
+
+    private void generatePalette(Bitmap image) {
+        Palette.generateAsync(image, new Palette.PaletteAsyncListener() {
+            public void onGenerated(Palette palette) {
+                if (palette != null) {
+                    paletteView.updateWith(palette);
+                }
+            }
+        });
     }
 }

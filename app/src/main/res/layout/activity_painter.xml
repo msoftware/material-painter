@@ -5,15 +5,6 @@
   android:layout_height="match_parent"
   tools:context=".PainterActivity">
 
-  <android.support.v7.widget.Toolbar
-    android:id="@+id/my_awesome_toolbar"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:minHeight="?attr/actionBarSize"
-    android:background="@color/color_primary"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,27 +17,11 @@
       android:layout_weight="1"
       android:id="@+id/show_image" />
 
-    <LinearLayout
-      android:id="@+id/muted_layout"
+    <com.novoda.materialpainter.view.PaletteView
+      android:id="@+id/palette"
       android:layout_width="match_parent"
       android:layout_height="0.0dp"
-      android:layout_weight="1"
-      android:gravity="center"
-      android:orientation="vertical">
-
-      <TextView
-        android:id="@+id/muted_layout_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title" />
-
-      <TextView
-        android:id="@+id/muted_layout_body_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Body" />
-
-    </LinearLayout>
+      android:layout_weight="1" />
 
   </LinearLayout>
 
@@ -57,5 +32,14 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true" />
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/my_awesome_toolbar"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/color_primary"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 </RelativeLayout>
