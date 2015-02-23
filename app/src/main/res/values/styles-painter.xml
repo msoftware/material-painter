@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Painter.FloatingActionButton" parent="FloatingActionButton">
+    <item name="android:background">@drawable/shape_fab_background</item>
+    <item name="android:contentDescription">@string/fab_content_description</item>
+    <item name="android:src">@drawable/ic_attach_file_white_24dp</item>
+  </style>
+
+  <style name="PaletteImage">
+    <item name="android:contentDescription">@string/palette_image_content_description</item>
+  </style>
+
+</resources>

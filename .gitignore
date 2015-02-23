@@ -34,10 +34,10 @@ tmp/
 *.iws
 .idea/
 .gradle/
+.idea/workspace.xml
 
 # Android
 local.properties
-hnews.properties
 
 # MAC
 *.DS_Store
@@ -45,10 +45,12 @@ hnews.properties
 # Linux
 *~
 
-=======
 # generated every build
 crashlytics.properties
-app/src/main/assets/crashlytics-build.properties
+crashlytics-build.properties
+
+# generated every build
+crashlytics.properties
 com_crashlytics_export_strings.xml
 
 app/build
